@@ -75,6 +75,17 @@ const externalLinks = computed(() =>
           </a>
         </li>
 
+        <li>
+          <RouterLink
+            to="/"
+            role="menuitem"
+            class="flex items-center gap-2 px-2 py-1.5 text-xs text-[#00136b] hover:bg-xp-select hover:text-white"
+          >
+            <img src="/img/txt.png" alt="" draggable="false" class="size-6 shrink-0" />
+            <span>Portfolio clásico</span>
+          </RouterLink>
+        </li>
+
         <li class="mt-auto border-t border-[#95bdee] px-2 pt-2">
           <p id="wallpaper-picker-label" class="mb-1.5 text-xs font-bold text-[#00136b]">Fondo de pantalla</p>
           <div role="radiogroup" aria-labelledby="wallpaper-picker-label" class="flex gap-1.5">
