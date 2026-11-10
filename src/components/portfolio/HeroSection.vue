@@ -3,8 +3,8 @@ import { profile } from '@/data/profile'
 </script>
 
 <template>
-  <section class="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-24 sm:pt-28 sm:pb-32">
-    <p v-reveal class="font-mono text-sm text-stone-500 dark:text-stone-400">Hola, soy</p>
+  <section class="mx-auto max-w-7xl px-6 lg:px-10 pt-20 pb-10 lg:pb-10 sm:pt-28 sm:pb-32">
+    <p v-reveal class="font-mono text-md text-orange-600 dark:text-orange-400">Hola, soy</p>
 
     <h1 v-reveal="80" class="mt-3 text-5xl font-semibold tracking-tight text-balance sm:text-7xl">
       {{ profile.name }}

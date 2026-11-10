@@ -18,7 +18,7 @@ async function copyEmail() {
 </script>
 
 <template>
-  <section id="contacto" class="mx-auto max-w-7xl scroll-mt-20 px-6 lg:px-10 py-20 sm:py-28">
+  <section id="contacto" class="mx-auto max-w-7xl scroll-mt-20 px-6 lg:px-10 py-15 sm:pb-28">
     <h2 v-reveal class="text-3xl font-semibold tracking-tight sm:text-5xl">¿Hablamos?</h2>
 
     <p v-reveal="80" class="mt-5 max-w-xl text-lg text-pretty text-stone-600 dark:text-stone-400">

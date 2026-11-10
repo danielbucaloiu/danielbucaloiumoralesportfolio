@@ -67,7 +67,7 @@ async function handleTabKeydown(event) {
           :aria-selected="index === activeIndex"
           aria-controls="project-panel"
           :tabindex="index === activeIndex ? 0 : -1"
-          class="flex shrink-0 items-baseline gap-3 rounded-xl border px-4 py-3 text-left font-medium transition-colors md:text-lg"
+          class="flex shrink-0 items-baseline gap-3 rounded-xl border px-4 py-3 text-left font-medium transition-colors md:text-lg cursor-pointer"
           :class="
             index === activeIndex
               ? 'border-stone-900 bg-white text-stone-900 dark:border-stone-100 dark:bg-stone-900 dark:text-stone-100'
@@ -93,11 +93,6 @@ async function handleTabKeydown(event) {
         :aria-labelledby="`project-tab-${activeProject.id}`"
         class="relative overflow-hidden rounded-3xl border border-stone-200 bg-white p-6 shadow-[0_1px_2px_rgb(0_0_0/0.04),0_16px_48px_-16px_rgb(0_0_0/0.12)] sm:p-10 lg:flex lg:min-h-130 lg:items-center dark:border-stone-800 dark:bg-stone-900 dark:shadow-none"
       >
-        <!-- Decorative dot grid, fading out from the top-right corner -->
-        <div
-          aria-hidden="true"
-          class="pointer-events-none absolute inset-0 bg-[radial-gradient(var(--color-stone-300)_1px,transparent_1px)] bg-size-[20px_20px] mask-[radial-gradient(ellipse_at_top_right,black,transparent_65%)] dark:bg-[radial-gradient(var(--color-stone-700)_1px,transparent_1px)]"
-        />
 
         <Transition
           mode="out-in"
@@ -136,7 +131,7 @@ async function handleTabKeydown(event) {
                   :href="activeProject.demoUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition hover:bg-stone-700 active:scale-[0.98] dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white"
+                  class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition hover:bg-stone-700 active:scale-[0.98] dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white hover:scale-105"
                 >
                   Ver web ↗
                 </a>
@@ -145,7 +140,7 @@ async function handleTabKeydown(event) {
                   :href="activeProject.repoUrl"
                   target="_blank"
                   rel="noopener noreferrer"
-                  class="flex items-center gap-2 rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium transition hover:border-stone-900 active:scale-[0.98] dark:border-stone-700 dark:hover:border-stone-300"
+                  class="flex items-center gap-2 rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium transition hover:border-stone-900 active:scale-[0.98] dark:border-stone-700 dark:hover:border-stone-300 hover:scale-105"
                 >
                   <img src="/img/skills/github.svg" alt="" class="size-4 dark:invert" />
                   Código

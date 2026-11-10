@@ -5,6 +5,8 @@ const props = defineProps({
   selected: { type: Boolean, default: false },
   // 'desktop' = white label over the wallpaper, 'explorer' = black label inside a window
   variant: { type: String, default: 'desktop' },
+  // Extra classes for the image (e.g. 'invert' for white icons on light backgrounds)
+  iconClass: { type: [String, Array, Object], default: '' },
 })
 
 const emit = defineEmits(['select', 'open'])
@@ -36,6 +38,7 @@ function handleClick(event) {
       :class="[
         props.variant === 'desktop' ? 'size-16 drop-shadow-[1px_2px_2px_rgb(0_0_0/0.5)]' : 'size-12',
         selected && 'opacity-70 brightness-75',
+        iconClass,
       ]"
     />
     <span

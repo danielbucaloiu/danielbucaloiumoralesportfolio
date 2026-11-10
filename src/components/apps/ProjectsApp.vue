@@ -12,7 +12,7 @@ function openProject(project) {
   windowManager.open({
     id: `project-${project.id}`,
     title: project.name,
-    icon: '/img/txt.png',
+    icon: project.icon || '/img/txt.png',
     component: ProjectDetailApp,
     props: { project },
     // Big enough for a 16:9 screenshot plus the info and buttons; open() shrinks it on small screens
@@ -51,7 +51,8 @@ function openProject(project) {
         <li v-for="project in projects" :key="project.id">
           <DesktopIcon
             variant="explorer"
-            icon="/img/folder.png"
+            :icon="project.icon || '/img/folder.png'"
+            :icon-class="{ invert: project.invertIconOnLight }"
             :label="project.name"
             :selected="selectedProjectId === project.id"
             @select="selectedProjectId = project.id"
