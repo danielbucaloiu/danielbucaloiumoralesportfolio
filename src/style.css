@@ -17,3 +17,216 @@
     border-color: var(--color-gray-200, currentcolor);
   }
 }
+
+/* Windows XP design tokens -> usable as Tailwind utilities (bg-xp-face, font-xp...) */
+@theme {
+  --font-xp: Tahoma, 'Segoe UI', Verdana, sans-serif;
+  --font-notepad: 'Lucida Console', 'Courier New', monospace;
+
+  --color-xp-face: #ece9d8;
+  --color-xp-select: #316ac5;
+  --color-xp-frame: #0831d9;
+  --color-xp-frame-inactive: #7a96df;
+  --color-xp-input-border: #7f9db9;
+  --color-xp-link: #0b4ba8;
+  --color-xp-panel: #d6dff7;
+}
+
+@layer components {
+  /* ---------- Window ---------- */
+  .xp-window {
+    background: var(--color-xp-frame-inactive);
+    border-radius: 8px 8px 0 0;
+    box-shadow: 2px 3px 12px rgb(0 0 0 / 0.45);
+  }
+
+  .xp-window.is-active {
+    background: var(--color-xp-frame);
+  }
+
+  .xp-titlebar {
+    background: linear-gradient(to bottom, #9db9eb 0%, #7a96df 10%, #7a96df 90%, #94afe8 100%);
+  }
+
+  .xp-window.is-active .xp-titlebar {
+    background: linear-gradient(
+      to bottom,
+      #0058ee 0%,
+      #3593ff 4%,
+      #288eff 6%,
+      #127dff 8%,
+      #036ffc 10%,
+      #0262ee 14%,
+      #0057e5 20%,
+      #0054e3 24%,
+      #0055eb 56%,
+      #005bf5 66%,
+      #026afe 76%,
+      #0062ef 86%,
+      #0052d6 92%,
+      #0040ab 94%,
+      #003092 100%
+    );
+  }
+
+  .xp-control {
+    display: grid;
+    place-items: center;
+    width: 21px;
+    height: 21px;
+    color: #fff;
+    border: 1px solid #fff;
+    border-radius: 3px;
+    background: linear-gradient(135deg, #5c97ff 0%, #2f6cf5 45%, #1d55e0 100%);
+  }
+
+  .xp-window:not(.is-active) .xp-control {
+    opacity: 0.75;
+  }
+
+  .xp-control:hover {
+    filter: brightness(1.2);
+  }
+
+  .xp-control:active {
+    filter: brightness(0.85);
+  }
+
+  .xp-control-close {
+    background: linear-gradient(135deg, #f0a08a 0%, #e0562f 40%, #c7360f 100%);
+  }
+
+  /* ---------- Controls ---------- */
+  .xp-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.375rem;
+    min-width: 75px;
+    padding: 3px 12px;
+    font-size: 11px;
+    color: #000;
+    border: 1px solid #003c74;
+    border-radius: 3px;
+    background: linear-gradient(to bottom, #fff 0%, #ecebe6 86%, #d6d0c5 100%);
+  }
+
+  .xp-button:hover {
+    box-shadow:
+      inset -1px 1px #fff0cf,
+      inset 1px 2px #fdd889,
+      inset -2px 2px #fbc761,
+      inset 2px -2px #e5a01a;
+  }
+
+  .xp-button:active {
+    background: linear-gradient(to bottom, #cdcac3 0%, #e3e3db 8%, #e5e5de 94%, #f2f2f1 100%);
+  }
+
+  .xp-input {
+    padding: 2px 4px;
+    font-size: 12px;
+    background: #fff;
+    border: 1px solid var(--color-xp-input-border);
+  }
+
+  .xp-input:focus {
+    outline: none;
+    border-color: var(--color-xp-select);
+  }
+
+  /* ---------- Taskbar ---------- */
+  .xp-taskbar {
+    background: linear-gradient(
+      to bottom,
+      #1f2f86 0%,
+      #3165c4 3%,
+      #3682e5 6%,
+      #4490e6 10%,
+      #3883e5 12%,
+      #2b71e0 15%,
+      #2663da 18%,
+      #235bd6 20%,
+      #2258d5 23%,
+      #2157d6 38%,
+      #245ddb 54%,
+      #2562df 86%,
+      #245fdc 89%,
+      #2158d4 92%,
+      #1d4ec0 95%,
+      #1941a5 98%
+    );
+  }
+
+  .xp-start {
+    background: linear-gradient(to bottom, #6cc066 0%, #45a63c 12%, #3a9a31 50%, #308c27 85%, #2a7a22 100%);
+    border-radius: 0 12px 12px 0;
+    box-shadow: inset -2px 0 4px rgb(0 0 0 / 0.25);
+  }
+
+  .xp-start:hover {
+    filter: brightness(1.1);
+  }
+
+  .xp-start.is-pressed {
+    filter: brightness(0.85);
+  }
+
+  .xp-task {
+    background: linear-gradient(to bottom, #4c94ff 0%, #3c81f3 15%, #3a7cf0 85%, #2f6be0 100%);
+    border-radius: 3px;
+    box-shadow:
+      inset -1px -1px rgb(0 0 0 / 0.25),
+      inset 1px 1px rgb(255 255 255 / 0.25);
+  }
+
+  .xp-task:hover {
+    filter: brightness(1.12);
+  }
+
+  .xp-task.is-active {
+    background: #1e52b7;
+    box-shadow:
+      inset 1px 1px 2px rgb(0 0 0 / 0.5),
+      inset -1px -1px rgb(255 255 255 / 0.1);
+  }
+
+  .xp-tray {
+    background: linear-gradient(
+      to bottom,
+      #0c59b9 1%,
+      #139ee9 6%,
+      #18b5f2 10%,
+      #139beb 14%,
+      #1290e8 19%,
+      #0d8dea 63%,
+      #0d9ff1 81%,
+      #0f9eed 88%,
+      #119be9 91%,
+      #1392e2 94%,
+      #137ed7 97%,
+      #095bc9 100%
+    );
+    border-left: 1px solid #1042af;
+    box-shadow: inset 1px 0 1px #18bbff;
+  }
+
+  /* ---------- Start menu ---------- */
+  .xp-startmenu {
+    background: #1d58d2;
+    border: 1px solid #0a246a;
+  }
+
+  .xp-startmenu-header {
+    background: linear-gradient(to bottom, #1868ce 0%, #0e60cb 12%, #0e60cb 20%, #1164cf 32%, #1667cf 33%, #1b6cd3 47%, #1e70d9 54%, #2476dc 60%, #297ae0 65%, #3482e3 77%, #3786e5 79%, #428ee9 90%, #4791eb 100%);
+  }
+
+  .xp-startmenu-footer {
+    background: linear-gradient(to bottom, #4282d6 0%, #3b85e0 3%, #418ae3 5%, #418ae3 17%, #3c87e2 21%, #3786e4 26%, #3482e3 29%, #2e7ee1 39%, #2374df 49%, #2072db 57%, #196edb 62%, #176bd8 72%, #1468d5 75%, #0c61cf 83%, #0a5fcc 87%, #095dca 93%, #0a5ec9 100%);
+  }
+
+  /* ---------- Explorer side panel ---------- */
+  .xp-explorer-sidebar {
+    background: linear-gradient(to bottom, #7ba2e7 0%, #6375d6 100%);
+  }
+}

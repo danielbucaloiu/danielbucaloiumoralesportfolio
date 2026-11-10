@@ -1,8 +1,7 @@
 <script setup>
-import desktop from './components/desktop.vue';
-
+import DesktopView from '@/components/desktop/DesktopView.vue'
 </script>
 
 <template>
-    <desktop/>
+  <DesktopView />
 </template>
