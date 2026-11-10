@@ -1,10 +1,12 @@
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { projects } from '@/data/projects'
 import { useWindowManager } from '@/composables/useWindowManager'
 import DesktopIcon from '@/components/desktop/DesktopIcon.vue'
 import ProjectDetailApp from './ProjectDetailApp.vue'
 
+const { t } = useI18n()
 const windowManager = useWindowManager()
 const selectedProjectId = ref(null)
 
@@ -25,21 +27,21 @@ function openProject(project) {
 <template>
   <div class="flex h-full flex-col text-xs">
     <div class="flex shrink-0 items-center gap-2 border-b border-[#d6d3ce] bg-xp-face px-2 py-1">
-      <span class="text-[#7f7f7f]">Dirección</span>
+      <span class="text-[#7f7f7f]">{{ t('desktop.explorer.address') }}</span>
       <div class="xp-input flex min-w-0 flex-1 items-center gap-1">
         <img src="/img/folder.png" alt="" class="size-4" />
-        <span class="truncate">C:\Portfolio\Proyectos</span>
+        <span class="truncate">{{ t('desktop.explorer.path') }}</span>
       </div>
     </div>
 
     <div class="flex min-h-0 flex-1">
       <aside class="xp-explorer-sidebar hidden w-44 shrink-0 p-3 sm:block">
         <section class="overflow-hidden rounded-t">
-          <h3 class="bg-linear-to-r from-white to-[#c6d3f7] px-2 py-1 font-bold text-[#215dc6]">Detalles</h3>
+          <h3 class="bg-linear-to-r from-white to-[#c6d3f7] px-2 py-1 font-bold text-[#215dc6]">{{ t('desktop.explorer.details') }}</h3>
           <div class="space-y-1 bg-xp-panel p-2 text-[11px]">
-            <p class="font-bold">Proyectos</p>
-            <p>Carpeta de archivos</p>
-            <p>{{ projects.length }} elementos</p>
+            <p class="font-bold">{{ t('desktop.explorer.folderName') }}</p>
+            <p>{{ t('desktop.explorer.folderType') }}</p>
+            <p>{{ t('desktop.explorer.items', { count: projects.length }, projects.length) }}</p>
           </div>
         </section>
       </aside>
@@ -63,7 +65,7 @@ function openProject(project) {
     </div>
 
     <footer class="shrink-0 border-t border-[#d6d3ce] bg-xp-face px-2 py-0.5 text-[11px]">
-      {{ projects.length }} objetos
+      {{ t('desktop.explorer.objects', { count: projects.length }, projects.length) }}
     </footer>
   </div>
 </template>

@@ -2,15 +2,19 @@
 // - technology logos: Devicon (devicon.dev), Pinia official logo, Simple Icons (Statamic)
 // - concepts without a logo: Tabler Icons (tabler.io/icons)
 // mono: black single-color icon, inverted in dark mode
+//
+// Category names are translated (src/i18n/locales -> skills.categories.<id>).
+// Skills use `name` when it's the same in every language, or `key` when it must be translated
+// (src/i18n/locales -> skills.names.<key>). Use the useSkillName() helper to display them.
 const icon = (name) => `/img/skills/${name}.svg`
 
 export const skillGroups = [
   {
-    category: 'Frontend',
+    id: 'frontend',
     skills: [
       { name: 'Vue 3', icon: icon('vuejs') },
       { name: 'JavaScript ES6+', icon: icon('javascript') },
-      { name: 'TypeScript (básico)', icon: icon('typescript') },
+      { key: 'typescriptBasic', icon: icon('typescript') },
       { name: 'HTML5', icon: icon('html5') },
       { name: 'CSS3', icon: icon('css3') },
       { name: 'Tailwind CSS', icon: icon('tailwindcss') },
@@ -22,29 +26,29 @@ export const skillGroups = [
     ],
   },
   {
-    category: 'Backend',
+    id: 'backend',
     skills: [
       { name: 'Laravel 11', icon: icon('laravel') },
       { name: 'PHP 8', icon: icon('php') },
       { name: 'Python', icon: icon('python') },
       { name: 'Eloquent ORM', icon: icon('database-cog'), mono: true },
       { name: 'Sanctum Auth', icon: icon('shield-lock'), mono: true },
-      { name: 'REST API consumption', icon: icon('api'), mono: true },
+      { key: 'restApi', icon: icon('api'), mono: true },
       { name: 'Artisan CLI', icon: icon('terminal-2'), mono: true },
       { name: 'Middleware', icon: icon('filter'), mono: true },
       { name: 'MVC', icon: icon('stack-2'), mono: true },
     ],
   },
   {
-    category: 'Bases de datos',
+    id: 'databases',
     skills: [
       { name: 'MySQL', icon: icon('mysql') },
-      { name: 'Migraciones', icon: icon('database-import'), mono: true },
+      { key: 'migrations', icon: icon('database-import'), mono: true },
       { name: 'Seeders', icon: icon('seedling'), mono: true },
     ],
   },
   {
-    category: 'Herramientas',
+    id: 'tools',
     skills: [
       { name: 'Docker', icon: icon('docker') },
       { name: 'Git', icon: icon('git') },
@@ -52,14 +56,14 @@ export const skillGroups = [
       { name: 'pnpm', icon: icon('pnpm') },
       { name: 'Node.js', icon: icon('nodejs') },
       { name: 'CI/CD Vercel', icon: icon('vercel'), mono: true },
-      { name: 'CMS Statamic (Laravel-based)', icon: icon('statamic'), mono: true },
+      { key: 'statamic', icon: icon('statamic'), mono: true },
     ],
   },
   {
-    category: 'Metodologías',
+    id: 'methodologies',
     skills: [
-      { name: 'Control de versiones', icon: icon('git-branch'), mono: true },
-      { name: 'Trabajo en equipo', icon: icon('users-group'), mono: true },
+      { key: 'versionControl', icon: icon('git-branch'), mono: true },
+      { key: 'teamwork', icon: icon('users-group'), mono: true },
       { name: 'SCRUM', icon: icon('layout-board'), mono: true },
     ],
   },

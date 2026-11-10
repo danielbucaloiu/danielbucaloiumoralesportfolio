@@ -1,7 +1,10 @@
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
 import { projects } from '@/data/projects'
+
+const { t } = useI18n()
 
 const projectsWithRepo = computed(() => projects.filter((project) => project.repoUrl))
 </script>
@@ -10,26 +13,26 @@ const projectsWithRepo = computed(() => projects.filter((project) => project.rep
   <!-- Internet Explorer look -->
   <div class="flex h-full flex-col text-xs">
     <div class="flex shrink-0 items-center gap-2 border-b border-[#d6d3ce] bg-xp-face px-2 py-1">
-      <span class="text-[#7f7f7f]">Dirección</span>
+      <span class="text-[#7f7f7f]">{{ t('desktop.explorer.address') }}</span>
       <div class="xp-input flex min-w-0 flex-1 items-center gap-1">
         <img src="/img/github.png" alt="" class="size-4" />
         <span class="truncate">{{ profile.githubUrl }}</span>
       </div>
-      <a :href="profile.githubUrl" target="_blank" rel="noopener noreferrer" class="xp-button min-w-0">Ir</a>
+      <a :href="profile.githubUrl" target="_blank" rel="noopener noreferrer" class="xp-button min-w-0">{{ t('desktop.github.go') }}</a>
     </div>
 
     <div class="min-h-0 flex-1 overflow-auto p-6">
       <div class="mx-auto flex max-w-md flex-col items-center gap-3 text-center">
         <img src="/img/github.png" alt="" class="size-20" />
         <h3 class="text-lg font-bold">{{ profile.githubUser }}</h3>
-        <p class="text-[#555]">{{ profile.role }}</p>
+        <p class="text-[#555]">{{ t('profile.role') }}</p>
         <a :href="profile.githubUrl" target="_blank" rel="noopener noreferrer" class="xp-button">
-          Abrir perfil en GitHub
+          {{ t('desktop.github.openProfile') }}
         </a>
       </div>
 
       <section v-if="projectsWithRepo.length" class="mx-auto mt-6 max-w-md">
-        <h4 class="mb-2 border-b border-[#d6d3ce] pb-1 font-bold text-[#215dc6]">Repositorios destacados</h4>
+        <h4 class="mb-2 border-b border-[#d6d3ce] pb-1 font-bold text-[#215dc6]">{{ t('desktop.github.featuredRepos') }}</h4>
         <ul class="space-y-1">
           <li v-for="project in projectsWithRepo" :key="project.id">
             <a :href="project.repoUrl" target="_blank" rel="noopener noreferrer" class="text-xp-link underline">

@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
+
+const { t } = useI18n()
 
 const subject = ref('')
 const message = ref('')
@@ -17,24 +20,24 @@ function sendMessage() {
     <div class="flex shrink-0 items-center gap-2 border-b border-[#d6d3ce] px-2 py-1.5">
       <button type="submit" class="xp-button">
         <img src="/img/mail.png" alt="" class="size-4" />
-        Enviar
+        {{ t('desktop.contact.send') }}
       </button>
     </div>
 
     <div class="grid shrink-0 grid-cols-[auto_1fr] items-center gap-x-2 gap-y-1.5 p-2">
-      <label for="contact-to">Para:</label>
+      <label for="contact-to">{{ t('desktop.contact.to') }}</label>
       <input id="contact-to" class="xp-input" :value="profile.email" readonly />
 
-      <label for="contact-subject">Asunto:</label>
+      <label for="contact-subject">{{ t('desktop.contact.subject') }}</label>
       <input id="contact-subject" v-model="subject" class="xp-input" required />
     </div>
 
-    <label for="contact-message" class="sr-only">Mensaje</label>
+    <label for="contact-message" class="sr-only">{{ t('desktop.contact.message') }}</label>
     <textarea
       id="contact-message"
       v-model="message"
       class="xp-input mx-2 mb-2 min-h-24 flex-1 resize-none"
-      placeholder="Escribe aquí tu mensaje..."
+      :placeholder="t('desktop.contact.placeholder')"
       required
     />
   </form>

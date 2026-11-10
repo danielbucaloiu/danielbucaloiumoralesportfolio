@@ -1,10 +1,15 @@
 <script setup>
 import { computed } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { desktopApps } from '@/data/apps'
+import { useLocale } from '@/composables/useLocale'
 import { profile } from '@/data/profile'
 import { useWallpaper } from '@/composables/useWallpaper'
 
 const emit = defineEmits(['open-app'])
+
+const { t } = useI18n()
+const { locale, toggleLocale } = useLocale()
 
 const { wallpapers, currentWallpaper, setWallpaper } = useWallpaper()
 
@@ -19,10 +24,10 @@ const initials = computed(() =>
 
 const externalLinks = computed(() =>
   [
-    { label: 'Perfil de GitHub', href: profile.githubUrl, icon: '/img/github.png' },
+    { label: t('desktop.startMenu.githubProfile'), href: profile.githubUrl, icon: '/img/github.png' },
     // TODO: add a LinkedIn icon to /public/img and use it here
-    { label: 'LinkedIn', href: profile.linkedinUrl, icon: '/img/txt.png' },
-    { label: 'Enviar un correo', href: `mailto:${profile.email}`, icon: '/img/mail.png' },
+    { label: t('desktop.startMenu.linkedin'), href: profile.linkedinUrl, icon: '/img/txt.png' },
+    { label: t('desktop.startMenu.sendEmail'), href: `mailto:${profile.email}`, icon: '/img/mail.png' },
   ].filter((link) => link.href),
 )
 </script>
@@ -42,7 +47,7 @@ const externalLinks = computed(() =>
       </div>
       <div class="min-w-0 text-white [text-shadow:1px_1px_1px_rgb(0_0_0/0.5)]">
         <p class="truncate text-sm font-bold">{{ profile.name }}</p>
-        <p class="truncate text-xs opacity-90">{{ profile.role }}</p>
+        <p class="truncate text-xs opacity-90">{{ t('profile.role') }}</p>
       </div>
     </header>
 
@@ -56,7 +61,7 @@ const externalLinks = computed(() =>
             @click="emit('open-app', app)"
           >
             <img :src="app.icon" alt="" draggable="false" class="size-8 shrink-0" />
-            <span class="font-bold">{{ app.title }}</span>
+            <span class="font-bold">{{ t(app.titleKey) }}</span>
           </button>
         </li>
       </ul>
@@ -82,12 +87,29 @@ const externalLinks = computed(() =>
             class="flex items-center gap-2 px-2 py-1.5 text-xs text-[#00136b] hover:bg-xp-select hover:text-white"
           >
             <img src="/img/txt.png" alt="" draggable="false" class="size-6 shrink-0" />
-            <span>Portfolio clásico</span>
+            <span>{{ t('desktop.startMenu.classicPortfolio') }}</span>
           </RouterLink>
         </li>
 
+        <li>
+          <button
+            type="button"
+            role="menuitem"
+            class="flex w-full items-center gap-2 px-2 py-1.5 text-left text-xs text-[#00136b] hover:bg-xp-select hover:text-white"
+            @click="toggleLocale"
+          >
+            <span
+              class="grid size-6 shrink-0 place-items-center rounded-sm border border-xp-input-border bg-white text-[9px] font-bold text-[#215dc6] uppercase"
+              aria-hidden="true"
+            >
+              {{ locale === 'es' ? 'en' : 'es' }}
+            </span>
+            <span>{{ t('desktop.startMenu.switchLanguage') }}</span>
+          </button>
+        </li>
+
         <li class="mt-auto border-t border-[#95bdee] px-2 pt-2">
-          <p id="wallpaper-picker-label" class="mb-1.5 text-xs font-bold text-[#00136b]">Fondo de pantalla</p>
+          <p id="wallpaper-picker-label" class="mb-1.5 text-xs font-bold text-[#00136b]">{{ t('desktop.startMenu.wallpaper') }}</p>
           <div role="radiogroup" aria-labelledby="wallpaper-picker-label" class="flex gap-1.5">
             <button
               v-for="wallpaper in wallpapers"
@@ -95,12 +117,12 @@ const externalLinks = computed(() =>
               type="button"
               role="radio"
               :aria-checked="currentWallpaper.id === wallpaper.id"
-              :title="wallpaper.name"
+              :title="t(wallpaper.nameKey)"
               class="aspect-video flex-1 overflow-hidden border-2 hover:border-[#e9a43c]"
               :class="currentWallpaper.id === wallpaper.id ? 'border-xp-select' : 'border-white'"
               @click="setWallpaper(wallpaper.id)"
             >
-              <img :src="wallpaper.src" :alt="wallpaper.name" draggable="false" class="size-full object-cover" />
+              <img :src="wallpaper.src" :alt="t(wallpaper.nameKey)" draggable="false" class="size-full object-cover" />
             </button>
           </div>
         </li>

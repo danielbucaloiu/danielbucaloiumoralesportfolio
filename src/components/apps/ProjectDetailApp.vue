@@ -1,4 +1,8 @@
 <script setup>
+import { useContent } from '@/composables/useContent'
+
+const { t, projectDescription } = useContent()
+
 defineProps({
   project: { type: Object, required: true },
 })
@@ -11,17 +15,17 @@ defineProps({
       <img
         v-if="project.image"
         :src="project.image"
-        :alt="`Captura de ${project.name}`"
+        :alt="t('common.screenshotOf', { name: project.name })"
         class="absolute inset-0 size-full object-contain p-1"
       />
       <img v-else src="/img/folder.png" alt="" class="absolute inset-0 m-auto size-20 opacity-40" />
     </div>
 
     <h3 class="shrink-0 text-base font-bold text-[#215dc6]">{{ project.name }}</h3>
-    <p class="shrink-0 leading-relaxed">{{ project.description }}</p>
+    <p class="shrink-0 leading-relaxed">{{ projectDescription(project) }}</p>
 
     <fieldset v-if="project.tech?.length" class="shrink-0 border border-[#d0d0bf] px-3 pt-1 pb-3">
-      <legend class="px-1 text-[#215dc6]">Tecnologías</legend>
+      <legend class="px-1 text-[#215dc6]">{{ t('desktop.projectDetail.technologies') }}</legend>
       <ul class="flex flex-wrap gap-1.5">
         <li v-for="tech in project.tech" :key="tech" class="border border-xp-input-border bg-white px-2 py-0.5">
           {{ tech }}
@@ -31,10 +35,10 @@ defineProps({
 
     <div v-if="project.repoUrl || project.demoUrl" class="flex shrink-0 justify-end gap-2">
       <a v-if="project.repoUrl" :href="project.repoUrl" target="_blank" rel="noopener noreferrer" class="xp-button">
-        Código
+        {{ t('common.code') }}
       </a>
       <a v-if="project.demoUrl" :href="project.demoUrl" target="_blank" rel="noopener noreferrer" class="xp-button">
-        Ver demo
+        {{ t('desktop.projectDetail.demo') }}
       </a>
     </div>
   </article>

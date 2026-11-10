@@ -62,10 +62,11 @@ function focus(id) {
 
 /**
  * Opens a window, or brings it to the front if it is already open.
- * @param {{ id: string, title: string, icon: string, component: object,
+ * Pass `titleKey` (translation key) for translated titles, or `title` for fixed ones (e.g. project names).
+ * @param {{ id: string, title?: string, titleKey?: string, icon: string, component: object,
  *           props?: object, width?: number, height?: number }} options
  */
-function open({ id, title, icon, component, props = {}, width = 520, height = 380 }) {
+function open({ id, title = '', titleKey = null, icon, component, props = {}, width = 520, height = 380 }) {
   const existing = findWindow(id)
   if (existing) {
     existing.minimized = false
@@ -81,6 +82,7 @@ function open({ id, title, icon, component, props = {}, width = 520, height = 38
   state.windows.push({
     id,
     title,
+    titleKey,
     icon,
     component: markRaw(component),
     props,

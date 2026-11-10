@@ -1,4 +1,8 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
+
 const props = defineProps({
   icon: { type: String, required: true },
   label: { type: String, required: true },
@@ -25,7 +29,7 @@ function handleClick(event) {
     type="button"
     class="group flex cursor-pointer flex-col items-center gap-1 p-1 text-center focus:outline-none"
     :class="props.variant === 'desktop' ? 'w-24' : 'w-20'"
-    :aria-label="`Abrir ${label}`"
+    :aria-label="t('common.open', { name: label })"
     @click="handleClick"
     @dblclick="emit('open')"
     @keydown.enter.prevent="emit('open')"

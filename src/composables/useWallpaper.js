@@ -1,9 +1,10 @@
 import { computed, ref, watch } from 'vue'
 
+// nameKey: translation key (src/i18n/locales)
 export const wallpapers = [
-  { id: 'default', name: 'Predeterminado', src: '/img/default_desktop_wallpaper.jpg' },
-  { id: 'wallpaper-1', name: 'Fondo 1', src: '/img/desktop_wallpaper1.jpg' },
-  { id: 'wallpaper-2', name: 'Fondo 2', src: '/img/desktop_wallpaper2.jpg' },
+  { id: 'default', nameKey: 'desktop.wallpapers.default', src: '/img/default_desktop_wallpaper.jpg' },
+  { id: 'wallpaper-1', nameKey: 'desktop.wallpapers.first', src: '/img/desktop_wallpaper1.jpg' },
+  { id: 'wallpaper-2', nameKey: 'desktop.wallpapers.second', src: '/img/desktop_wallpaper2.jpg' },
 ]
 
 const STORAGE_KEY = 'desktop-wallpaper'

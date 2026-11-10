@@ -1,5 +1,7 @@
 <script setup>
 import { useClock } from '@/composables/useClock'
+import { useContent } from '@/composables/useContent'
+import { useLocale } from '@/composables/useLocale'
 import { useWindowManager } from '@/composables/useWindowManager'
 
 defineProps({
@@ -9,7 +11,9 @@ defineProps({
 const emit = defineEmits(['toggle-start-menu'])
 
 const windowManager = useWindowManager()
-const { now, time, date, shortDate } = useClock()
+const { t, windowTitle } = useContent()
+const { locale } = useLocale()
+const { now, time, date, shortDate } = useClock(() => (locale.value === 'es' ? 'es-ES' : 'en-US'))
 </script>
 
 <template>
@@ -24,21 +28,21 @@ const { now, time, date, shortDate } = useClock()
       @click="emit('toggle-start-menu')"
     >
       <img src="/img/windows_xp_icon_logo.png" alt="" draggable="false" class="size-7 drop-shadow-[1px_1px_1px_rgb(0_0_0/0.4)]" />
-      <span>inicio</span>
+      <span>{{ t('desktop.start') }}</span>
     </button>
 
-    <nav aria-label="Ventanas abiertas" class="flex min-w-0 flex-1 items-center gap-1 px-2">
+    <nav :aria-label="t('desktop.openWindows')" class="flex min-w-0 flex-1 items-center gap-1 px-2">
       <button
         v-for="win in windowManager.state.windows"
         :key="win.id"
         type="button"
         class="xp-task flex h-8 w-40 min-w-0 shrink items-center gap-1.5 px-2 text-xs text-white"
         :class="{ 'is-active': windowManager.state.activeId === win.id && !win.minimized }"
-        :title="win.title"
+        :title="windowTitle(win)"
         @click="windowManager.toggleFromTaskbar(win.id)"
       >
         <img :src="win.icon" alt="" draggable="false" class="size-4 shrink-0" />
-        <span class="truncate">{{ win.title }}</span>
+        <span class="truncate">{{ windowTitle(win) }}</span>
       </button>
     </nav>
 

@@ -1,5 +1,8 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
+
+const { t } = useI18n()
 
 const currentYear = new Date().getFullYear()
 </script>
@@ -12,7 +15,7 @@ const currentYear = new Date().getFullYear()
       <p>© {{ currentYear }} {{ profile.name }}</p>
       <RouterLink to="/desktop" class="flex items-center gap-2 transition hover:text-stone-900 dark:hover:text-stone-100">
         <img src="/img/windows_xp_icon_logo.png" alt="" class="size-4" />
-        Versión escritorio
+        {{ t('portfolio.desktopVersion') }}
       </RouterLink>
     </div>
   </footer>

@@ -1,12 +1,14 @@
 <script setup>
 import { computed } from 'vue'
 import { useWindowManager } from '@/composables/useWindowManager'
+import { useContent } from '@/composables/useContent'
 
 const props = defineProps({
   win: { type: Object, required: true },
 })
 
 const windowManager = useWindowManager()
+const { t, windowTitle } = useContent()
 
 const isActive = computed(() => windowManager.state.activeId === props.win.id)
 const titleId = computed(() => `window-title-${props.win.id}`)
@@ -78,7 +80,7 @@ function handleTitleDoubleClick(event) {
     @pointerdown="windowManager.focus(win.id)"
   >
     <header
-      class="xp-titlebar flex h-[30px] shrink-0 touch-none items-center gap-1.5 pr-1 pl-2"
+      class="xp-titlebar flex h-7.5 shrink-0 touch-none items-center gap-1.5 pr-1 pl-2"
       :class="win.maximized ? 'cursor-default' : 'cursor-move rounded-t-lg'"
       @pointerdown="startGesture($event, 'move')"
       @pointermove="updateGesture"
@@ -92,11 +94,11 @@ function handleTitleDoubleClick(event) {
         class="min-w-0 truncate text-[13px] font-bold [text-shadow:1px_1px_#0f1089]"
         :class="isActive ? 'text-white' : 'text-[#d8e4f8]'"
       >
-        {{ win.title }}
+        {{ windowTitle(win) }}
       </h2>
 
       <div class="ml-auto flex shrink-0 gap-0.5">
-        <button type="button" class="xp-control" aria-label="Minimizar" @click="windowManager.minimize(win.id)">
+        <button type="button" class="xp-control" :aria-label="t('desktop.window.minimize')" @click="windowManager.minimize(win.id)">
           <svg viewBox="0 0 10 10" class="size-2.5" aria-hidden="true">
             <rect x="1" y="7" width="6" height="2" fill="currentColor" />
           </svg>
@@ -105,7 +107,7 @@ function handleTitleDoubleClick(event) {
         <button
           type="button"
           class="xp-control"
-          :aria-label="win.maximized ? 'Restaurar' : 'Maximizar'"
+          :aria-label="win.maximized ? t('desktop.window.restore') : t('desktop.window.maximize')"
           @click="windowManager.toggleMaximize(win.id)"
         >
           <svg v-if="win.maximized" viewBox="0 0 10 10" class="size-2.5" aria-hidden="true">
@@ -121,7 +123,7 @@ function handleTitleDoubleClick(event) {
         <button
           type="button"
           class="xp-control xp-control-close"
-          aria-label="Cerrar"
+          :aria-label="t('desktop.window.close')"
           @click="windowManager.close(win.id)"
         >
           <svg viewBox="0 0 10 10" class="size-2.5" aria-hidden="true">
@@ -131,7 +133,7 @@ function handleTitleDoubleClick(event) {
       </div>
     </header>
 
-    <div class="mx-[3px] mb-[3px] min-h-0 flex-1 overflow-auto bg-white select-text">
+    <div class="mx-0.75 mb-0.75 min-h-0 flex-1 overflow-auto bg-white select-text">
       <component :is="win.component" v-bind="win.props" />
     </div>
 

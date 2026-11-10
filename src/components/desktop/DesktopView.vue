@@ -1,5 +1,6 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { desktopApps } from '@/data/apps'
 import { useWallpaper } from '@/composables/useWallpaper'
 import { useWindowManager } from '@/composables/useWindowManager'
@@ -8,6 +9,7 @@ import DesktopIcon from './DesktopIcon.vue'
 import StartMenu from './StartMenu.vue'
 import Taskbar from './Taskbar.vue'
 
+const { t } = useI18n()
 const windowManager = useWindowManager()
 const { currentWallpaper } = useWallpaper()
 
@@ -50,13 +52,13 @@ onUnmounted(() => {
     <main class="absolute inset-x-0 top-0 bottom-10">
       <ul
         class="flex h-full flex-col flex-wrap content-start gap-3 p-3"
-        aria-label="Escritorio"
+        :aria-label="t('desktop.desktopLabel')"
         @pointerdown.self="selectedIconId = null"
       >
         <li v-for="app in desktopApps" :key="app.id">
           <DesktopIcon
             :icon="app.icon"
-            :label="app.title"
+            :label="t(app.titleKey)"
             :selected="selectedIconId === app.id"
             @select="selectedIconId = app.id"
             @open="openApp(app)"

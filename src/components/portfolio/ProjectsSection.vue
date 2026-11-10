@@ -2,6 +2,9 @@
 import { computed, nextTick, onMounted, ref } from 'vue'
 import { projects } from '@/data/projects'
 import { getTechIcon } from '@/data/techIcons'
+import { useContent } from '@/composables/useContent'
+
+const { t, projectDescription } = useContent()
 
 // Preload every screenshot so switching projects doesn't show an empty image while it loads.
 onMounted(() => {
@@ -47,13 +50,13 @@ async function handleTabKeydown(event) {
 
 <template>
   <section id="proyectos" class="mx-auto max-w-7xl scroll-mt-20 px-6 py-20 lg:px-10">
-    <h2 v-reveal class="text-3xl font-semibold tracking-tight">Proyectos</h2>
+    <h2 v-reveal class="text-3xl font-semibold tracking-tight">{{ t('portfolio.projects.title') }}</h2>
 
     <div v-reveal="100" class="mt-10 grid gap-4 md:grid-cols-[220px_1fr] md:gap-6">
       <!-- Project selector -->
       <div
         role="tablist"
-        aria-label="Proyectos"
+        :aria-label="t('portfolio.projects.title')"
         aria-orientation="vertical"
         class="-mx-6 flex gap-2 overflow-x-auto px-6 pb-1 md:mx-0 md:flex-col md:overflow-visible md:p-0"
       >
@@ -111,7 +114,7 @@ async function handleTabKeydown(event) {
               <h3 class="mt-3 text-3xl font-semibold tracking-tight lg:text-4xl">{{ activeProject.name }}</h3>
 
               <p class="mt-4 text-lg leading-relaxed text-pretty text-stone-600 dark:text-stone-400">
-                {{ activeProject.description }}
+                {{ projectDescription(activeProject) }}
               </p>
 
               <ul class="mt-6 flex flex-wrap gap-2">
@@ -133,7 +136,7 @@ async function handleTabKeydown(event) {
                   rel="noopener noreferrer"
                   class="rounded-full bg-stone-900 px-5 py-2.5 text-sm font-medium text-stone-50 transition hover:bg-stone-700 active:scale-[0.98] dark:bg-stone-100 dark:text-stone-900 dark:hover:bg-white hover:scale-105"
                 >
-                  Ver web ↗
+                  {{ t('portfolio.projects.visit') }}
                 </a>
                 <a
                   v-if="activeProject.repoUrl"
@@ -143,7 +146,7 @@ async function handleTabKeydown(event) {
                   class="flex items-center gap-2 rounded-full border border-stone-300 px-5 py-2.5 text-sm font-medium transition hover:border-stone-900 active:scale-[0.98] dark:border-stone-700 dark:hover:border-stone-300 hover:scale-105"
                 >
                   <img src="/img/skills/github.svg" alt="" class="size-4 dark:invert" />
-                  Código
+                  {{ t('common.code') }}
                 </a>
               </div>
             </div>
@@ -155,7 +158,7 @@ async function handleTabKeydown(event) {
               target="_blank"
               rel="noopener noreferrer"
               class="group block overflow-hidden rounded-xl border border-stone-200 bg-stone-100 shadow-xl shadow-stone-900/10 transition duration-300 hover:-translate-y-1 motion-reduce:transition-none dark:border-stone-700 dark:bg-stone-800 dark:shadow-black/40"
-              :aria-label="`Abrir ${activeProject.name}`"
+              :aria-label="t('common.open', { name: activeProject.name })"
             >
               <div class="flex items-center gap-3 border-b border-stone-200 px-4 py-2.5 dark:border-stone-700" aria-hidden="true">
                 <div class="flex gap-1.5">
@@ -168,9 +171,9 @@ async function handleTabKeydown(event) {
                 >
                   {{ activeHostname }}
                 </div>
-                <div class="hidden w-[42px] sm:block" />
+                <div class="hidden w-10.5 sm:block" />
               </div>
-              <img :src="activeProject.image" :alt="`Captura de ${activeProject.name}`" class="h-auto w-full" />
+              <img :src="activeProject.image" :alt="t('common.screenshotOf', { name: activeProject.name })" class="h-auto w-full" />
             </a>
           </article>
         </Transition>

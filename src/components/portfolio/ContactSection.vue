@@ -1,6 +1,9 @@
 <script setup>
 import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { profile } from '@/data/profile'
+
+const { t } = useI18n()
 
 const isCopied = ref(false)
 let resetTimer
@@ -19,11 +22,10 @@ async function copyEmail() {
 
 <template>
   <section id="contacto" class="mx-auto max-w-7xl scroll-mt-20 px-6 lg:px-10 py-15 sm:pb-28">
-    <h2 v-reveal class="text-3xl font-semibold tracking-tight sm:text-5xl">¿Hablamos?</h2>
+    <h2 v-reveal class="text-3xl font-semibold tracking-tight sm:text-5xl">{{ t('portfolio.contact.title') }}</h2>
 
     <p v-reveal="80" class="mt-5 max-w-xl text-lg text-pretty text-stone-600 dark:text-stone-400">
-      Estoy buscando nuevas oportunidades. Si tienes un proyecto o una oferta, escríbeme y te responderé lo antes
-      posible.
+      {{ t('portfolio.contact.text') }}
     </p>
 
     <div v-reveal="160" class="mt-10 flex flex-wrap items-center gap-x-4 gap-y-3">
@@ -39,7 +41,7 @@ async function copyEmail() {
         class="rounded-full border border-stone-300 px-3 py-1 text-sm text-stone-600 transition hover:border-stone-900 hover:text-stone-900 dark:border-stone-700 dark:text-stone-400 dark:hover:border-stone-300 dark:hover:text-stone-100"
         @click="copyEmail"
       >
-        <span aria-live="polite">{{ isCopied ? 'Copiado' : 'Copiar' }}</span>
+        <span aria-live="polite">{{ isCopied ? t('portfolio.contact.copied') : t('portfolio.contact.copy') }}</span>
       </button>
     </div>
 

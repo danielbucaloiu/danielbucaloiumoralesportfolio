@@ -1,6 +1,8 @@
 <script setup>
+import { useI18n } from 'vue-i18n'
 import { useTheme } from '@/composables/useTheme'
 
+const { t } = useI18n()
 const { isDark, toggleTheme } = useTheme()
 </script>
 
@@ -8,8 +10,8 @@ const { isDark, toggleTheme } = useTheme()
   <button
     type="button"
     class="relative grid size-9 place-items-center rounded-full text-stone-600 transition-colors hover:bg-stone-200/70 hover:text-stone-900 dark:text-stone-400 dark:hover:bg-stone-800 dark:hover:text-stone-100 cursor-pointer"
-    :aria-label="isDark ? 'Cambiar a tema claro' : 'Cambiar a tema oscuro'"
-    :title="isDark ? 'Tema claro' : 'Tema oscuro'"
+    :aria-label="isDark ? t('portfolio.theme.toLight') : t('portfolio.theme.toDark')"
+    :title="isDark ? t('portfolio.theme.light') : t('portfolio.theme.dark')"
     @click="toggleTheme"
   >
     <Transition
@@ -24,7 +26,7 @@ const { isDark, toggleTheme } = useTheme()
         v-if="isDark"
         key="sun"
         viewBox="0 0 24 24"
-        class="size-[18px]"
+        class="size-4.5"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
@@ -39,7 +41,7 @@ const { isDark, toggleTheme } = useTheme()
         v-else
         key="moon"
         viewBox="0 0 24 24"
-        class="size-[18px]"
+        class="size-4.5"
         fill="none"
         stroke="currentColor"
         stroke-width="2"
