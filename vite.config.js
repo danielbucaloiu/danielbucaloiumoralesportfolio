@@ -11,4 +11,10 @@ export default defineConfig({
       '@': fileURLToPath(new URL('./src', import.meta.url)),
     },
   },
+  // vite-ssg (npm run build): pre-render these routes to static HTML -> dist/index.html, dist/desktop.html
+  ssgOptions: {
+    includedRoutes: () => ['/', '/desktop'],
+    script: 'async',
+    formatting: 'minify',
+  },
 })

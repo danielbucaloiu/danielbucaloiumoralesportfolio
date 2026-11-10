@@ -1,4 +1,4 @@
-import { computed, ref, watch } from 'vue'
+import { computed, ref } from 'vue'
 
 // nameKey: translation key (src/i18n/locales)
 export const wallpapers = [
@@ -9,31 +9,30 @@ export const wallpapers = [
 
 const STORAGE_KEY = 'desktop-wallpaper'
 
-function readSavedId() {
+// Module-level state shared by the desktop and the start menu.
+// Starts with the default wallpaper so the browser render matches the pre-rendered HTML;
+// syncWallpaperFromStorage() (called after mounting the desktop) restores the saved one.
+const currentId = ref(wallpapers[0].id)
+
+export function syncWallpaperFromStorage() {
   try {
-    return localStorage.getItem(STORAGE_KEY)
+    const savedId = localStorage.getItem(STORAGE_KEY)
+    if (wallpapers.some((w) => w.id === savedId)) currentId.value = savedId
   } catch {
-    return null
+    // Storage unavailable: keep the default wallpaper.
   }
 }
-
-// Module-level state shared by the desktop and the start menu.
-const savedId = readSavedId()
-const currentId = ref(wallpapers.some((w) => w.id === savedId) ? savedId : wallpapers[0].id)
-
-watch(currentId, (id) => {
-  try {
-    localStorage.setItem(STORAGE_KEY, id)
-  } catch {
-    // Storage can be unavailable (private mode, blocked cookies): the choice just isn't remembered.
-  }
-})
 
 export function useWallpaper() {
   const currentWallpaper = computed(() => wallpapers.find((w) => w.id === currentId.value) ?? wallpapers[0])
 
   function setWallpaper(id) {
     currentId.value = id
+    try {
+      localStorage.setItem(STORAGE_KEY, id)
+    } catch {
+      // Storage can be unavailable (private mode, blocked cookies): the choice just isn't remembered.
+    }
   }
 
   return { wallpapers, currentWallpaper, setWallpaper }

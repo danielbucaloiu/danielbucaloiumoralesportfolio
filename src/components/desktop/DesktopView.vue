@@ -2,7 +2,8 @@
 import { onMounted, onUnmounted, ref } from 'vue'
 import { useI18n } from 'vue-i18n'
 import { desktopApps } from '@/data/apps'
-import { useWallpaper } from '@/composables/useWallpaper'
+import { useHead } from '@unhead/vue'
+import { syncWallpaperFromStorage, useWallpaper } from '@/composables/useWallpaper'
 import { useWindowManager } from '@/composables/useWindowManager'
 import AppWindow from './AppWindow.vue'
 import DesktopIcon from './DesktopIcon.vue'
@@ -12,6 +13,10 @@ import Taskbar from './Taskbar.vue'
 const { t } = useI18n()
 const windowManager = useWindowManager()
 const { currentWallpaper } = useWallpaper()
+
+// The desktop is an alternative view of the same content: keep it out of search results
+// so it doesn't compete with the main page.
+useHead({ meta: [{ name: 'robots', content: 'noindex, follow' }] })
 
 const selectedIconId = ref(null)
 const isStartMenuOpen = ref(false)
@@ -32,6 +37,7 @@ function handleKeydown(event) {
 }
 
 onMounted(() => {
+  syncWallpaperFromStorage()
   document.addEventListener('pointerdown', handleDocumentPointerDown)
   document.addEventListener('keydown', handleKeydown)
   window.addEventListener('resize', windowManager.fitAllToViewport)

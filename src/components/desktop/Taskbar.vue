@@ -48,7 +48,7 @@ const { now, time, date, shortDate } = useClock(() => (locale.value === 'es' ? '
 
     <time
       class="xp-tray flex shrink-0 flex-col items-center justify-center px-3 text-[11px] leading-tight text-white"
-      :datetime="now.toISOString()"
+      :datetime="now?.toISOString()"
       :title="date"
     >
       <span>{{ time }}</span>

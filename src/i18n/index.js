@@ -4,9 +4,22 @@ import en from './locales/en'
 import es from './locales/es'
 
 export const SUPPORTED_LOCALES = ['es', 'en']
+// Language of the pre-rendered HTML (what Google indexes).
+export const DEFAULT_LOCALE = 'es'
 const STORAGE_KEY = 'locale'
 
-function getInitialLocale() {
+const isBrowser = typeof window !== 'undefined'
+
+// Always start with the default locale so the browser render matches the pre-rendered HTML
+// (hydration). The visitor's preferred language is applied right after mounting (see App.vue).
+export const i18n = createI18n({
+  legacy: false,
+  locale: DEFAULT_LOCALE,
+  fallbackLocale: DEFAULT_LOCALE,
+  messages: { es, en },
+})
+
+function getPreferredLocale() {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (SUPPORTED_LOCALES.includes(saved)) return saved
@@ -16,25 +29,16 @@ function getInitialLocale() {
   return navigator.language?.toLowerCase().startsWith('es') ? 'es' : 'en'
 }
 
-export const i18n = createI18n({
-  legacy: false,
-  locale: getInitialLocale(),
-  fallbackLocale: 'es',
-  messages: { es, en },
-})
+/** Client only: switch to the saved/browser language and remember future changes. */
+export function applyPreferredLocale() {
+  if (!isBrowser) return
 
-// Keep <html lang>, the tab title and the meta description in sync, and remember the choice.
-function applyLocale(locale) {
-  const { t } = i18n.global
-  document.documentElement.lang = locale
-  document.title = t('meta.title')
-  document.querySelector('meta[name="description"]')?.setAttribute('content', t('meta.description'))
-  try {
-    localStorage.setItem(STORAGE_KEY, locale)
-  } catch {
-    // Storage unavailable: the language works, it just isn't remembered.
-  }
+  i18n.global.locale.value = getPreferredLocale()
+  watch(i18n.global.locale, (locale) => {
+    try {
+      localStorage.setItem(STORAGE_KEY, locale)
+    } catch {
+      // Storage unavailable: the language works, it just isn't remembered.
+    }
+  })
 }
-
-applyLocale(i18n.global.locale.value)
-watch(i18n.global.locale, applyLocale)

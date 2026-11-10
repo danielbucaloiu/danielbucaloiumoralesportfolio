@@ -4,8 +4,9 @@
 export default {
   meta: {
     // {'|'} prints a literal "|" (a plain "|" would be read as a plural separator)
-    title: "Daniel Bucaloiu Morales {'|'} Desarrollador Web",
-    description: 'Portfolio de Daniel Bucaloiu Morales, desarrollador de aplicaciones web full stack.',
+    title: "Daniel Bucaloiu Morales {'|'} Desarrollador Web Full-Stack",
+    description:
+      'Portfolio de Daniel Bucaloiu Morales, desarrollador web Full-Stack especializado en Vue 3 y Laravel. Proyectos como SpainBeaches y Telamonet, skills y contacto.',
   },
 
   common: {

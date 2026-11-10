@@ -2,8 +2,14 @@ import { computed, ref } from 'vue'
 
 const STORAGE_KEY = 'theme'
 
-// The initial class is set by an inline script in index.html (avoids a flash of the wrong theme).
-const theme = ref(document.documentElement.classList.contains('dark') ? 'dark' : 'light')
+// Starts as 'light' so the browser render matches the pre-rendered HTML (hydration).
+// The real theme class is already on <html> thanks to the inline script in index.html;
+// syncThemeFromDocument() (called after mounting, see App.vue) copies it into this state.
+const theme = ref('light')
+
+export function syncThemeFromDocument() {
+  theme.value = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+}
 
 function setTheme(value) {
   theme.value = value
