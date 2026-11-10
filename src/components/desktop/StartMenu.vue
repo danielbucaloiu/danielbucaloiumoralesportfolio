@@ -2,8 +2,11 @@
 import { computed } from 'vue'
 import { desktopApps } from '@/data/apps'
 import { profile } from '@/data/profile'
+import { useWallpaper } from '@/composables/useWallpaper'
 
 const emit = defineEmits(['open-app'])
+
+const { wallpapers, currentWallpaper, setWallpaper } = useWallpaper()
 
 const initials = computed(() =>
   profile.name
@@ -58,7 +61,7 @@ const externalLinks = computed(() =>
         </li>
       </ul>
 
-      <ul class="border-l border-[#95bdee] bg-[#d3e5fa] py-1.5">
+      <ul class="flex flex-col border-l border-[#95bdee] bg-[#d3e5fa] py-1.5">
         <li v-for="link in externalLinks" :key="link.label">
           <a
             :href="link.href"
@@ -70,6 +73,25 @@ const externalLinks = computed(() =>
             <img :src="link.icon" alt="" draggable="false" class="size-6 shrink-0" />
             <span>{{ link.label }}</span>
           </a>
+        </li>
+
+        <li class="mt-auto border-t border-[#95bdee] px-2 pt-2">
+          <p id="wallpaper-picker-label" class="mb-1.5 text-xs font-bold text-[#00136b]">Fondo de pantalla</p>
+          <div role="radiogroup" aria-labelledby="wallpaper-picker-label" class="flex gap-1.5">
+            <button
+              v-for="wallpaper in wallpapers"
+              :key="wallpaper.id"
+              type="button"
+              role="radio"
+              :aria-checked="currentWallpaper.id === wallpaper.id"
+              :title="wallpaper.name"
+              class="aspect-video flex-1 overflow-hidden border-2 hover:border-[#e9a43c]"
+              :class="currentWallpaper.id === wallpaper.id ? 'border-xp-select' : 'border-white'"
+              @click="setWallpaper(wallpaper.id)"
+            >
+              <img :src="wallpaper.src" :alt="wallpaper.name" draggable="false" class="size-full object-cover" />
+            </button>
+          </div>
         </li>
       </ul>
     </div>

@@ -1,6 +1,7 @@
 <script setup>
 import { onMounted, onUnmounted, ref } from 'vue'
 import { desktopApps } from '@/data/apps'
+import { useWallpaper } from '@/composables/useWallpaper'
 import { useWindowManager } from '@/composables/useWindowManager'
 import AppWindow from './AppWindow.vue'
 import DesktopIcon from './DesktopIcon.vue'
@@ -8,6 +9,7 @@ import StartMenu from './StartMenu.vue'
 import Taskbar from './Taskbar.vue'
 
 const windowManager = useWindowManager()
+const { currentWallpaper } = useWallpaper()
 
 const selectedIconId = ref(null)
 const isStartMenuOpen = ref(false)
@@ -42,7 +44,8 @@ onUnmounted(() => {
 
 <template>
   <div
-    class="fixed inset-0 overflow-hidden bg-[#3a6ea5] bg-[url('/img/desktop_wallpaper.jpg')] bg-cover bg-center font-xp select-none"
+    class="fixed inset-0 overflow-hidden bg-[#3a6ea5] bg-cover bg-center font-xp transition-[background-image] duration-300 select-none"
+    :style="{ backgroundImage: `url('${currentWallpaper.src}')` }"
   >
     <main class="absolute inset-x-0 top-0 bottom-10">
       <ul
