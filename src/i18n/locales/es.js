@@ -6,7 +6,7 @@ export default {
     // {'|'} prints a literal "|" (a plain "|" would be read as a plural separator)
     title: "Daniel Bucaloiu Morales {'|'} Desarrollador Web Full-Stack",
     description:
-      'Portfolio de Daniel Bucaloiu Morales, desarrollador web Full-Stack especializado en Vue 3 y Laravel. Proyectos como SpainBeaches y Telamonet, skills y contacto.',
+      'Portfolio de Daniel Bucaloiu Morales, desarrollador web Full-Stack con mucha práctica en Vue 3. Proyectos como SpainBeaches y Telamonet, skills y contacto.',
   },
 
   common: {

@@ -37,6 +37,7 @@ const structuredData = computed(() => ({
     jobTitle: t('profile.role'),
     description: t('meta.description'),
     url: `${SITE_URL}/`,
+    image: `${SITE_URL}/img/profile.jpg`,
     email: `mailto:${profile.email}`,
     sameAs: [profile.githubUrl, profile.linkedinUrl].filter(Boolean),
     knowsAbout: ['Vue 3', 'JavaScript', 'TypeScript', 'Laravel', 'PHP', 'Tailwind CSS', 'MySQL', 'Docker'],
